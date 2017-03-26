@@ -196,18 +196,6 @@
           this.props.children
         );
       }
-    }, {
-      key: 'render',
-      value: function render() {
-        _react2.default.createElement(
-          'div',
-          {
-            className: 'DD',
-            style: Object.assign({}, dropDownDefaultStyles, alignment, this.state.fadeIn)
-          },
-          this.props.children
-        );
-      }
     }]);
 
     return DD;
