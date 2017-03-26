@@ -105,7 +105,14 @@ class DD extends Component {
     );
   }
 
-  render() {}
+  render() {
+    <div
+      className="DD"
+      style={Object.assign({}, dropDownDefaultStyles, alignment, this.state.fadeIn)}
+    >
+      {this.props.children}
+    </div>
+  }
 }
 
 DD.propTypes = propTypes;
