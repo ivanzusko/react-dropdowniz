@@ -5,6 +5,8 @@
 import React, { Component, PropTypes } from 'react';
 
 const propTypes = {
+  className: PropTypes.string,
+  // discardDefault: PropTypes.bool,
   onClose: PropTypes.func.isRequired,
   left: PropTypes.bool,
   right: PropTypes.bool,
@@ -67,6 +69,7 @@ class DD extends Component {
   }
 
   render () {
+    const className = this.props.className ? `DD ${this.props.className}` : 'DD';
     const dropDownDefaultStyles = {
       backgroundColor: '#fff',
       boxShadow: '0 0.2rem 1.6rem 0 #f4f3f0',
@@ -97,7 +100,7 @@ class DD extends Component {
     }
     return (
       <div
-        className="DD"
+        className={className}
         style={Object.assign({}, dropDownDefaultStyles, alignment, this.state.fadeIn)}
       >
         {this.props.children}

@@ -74,6 +74,8 @@
   }
 
   var propTypes = {
+    className: _react.PropTypes.string,
+    // discardDefault: PropTypes.bool,
     onClose: _react.PropTypes.func.isRequired,
     left: _react.PropTypes.bool,
     right: _react.PropTypes.bool,
@@ -160,6 +162,7 @@
     }, {
       key: 'render',
       value: function render() {
+        var className = this.props.className ? 'DD ' + this.props.className : 'DD';
         var dropDownDefaultStyles = {
           backgroundColor: '#fff',
           boxShadow: '0 0.2rem 1.6rem 0 #f4f3f0',
@@ -190,7 +193,7 @@
         return _react2.default.createElement(
           'div',
           {
-            className: 'DD',
+            className: className,
             style: Object.assign({}, dropDownDefaultStyles, alignment, this.state.fadeIn)
           },
           this.props.children

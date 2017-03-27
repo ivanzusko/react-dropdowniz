@@ -44,6 +44,7 @@ class YourComponent extends Component {
         {
           this.state.showDropdown &&
             <Dropdown
+              className="your-class"
               right
               show={this.state.showDropdown}
               onClose={this.handleHideDropdown}
@@ -59,6 +60,11 @@ class YourComponent extends Component {
 }
 ```
 
-- ***`show`*** - _boolean_ is ***required*** and  responsible for show/hide dropdown
-- ***`onClose`*** - _Function_ is ***required*** and responsible for changing the state of the component which includes `Dropdown`
-- also Dropdown accepts `left` or `right` _boolean_ props, which are responsible for alignment. If they are not stated - `Dropdown`, by ***default*** will be centered ***in the middle***.
+## Options
+
+Property | Type | isRequired | Default value | Description
+:---|:---|:---|:---|:---
+`className`| string | false | `DD` | custom className which will be added to the dafault `DD`
+`onClose`| Function | true |  | Function responsible for changing the state of the component which includes `Dropdown`
+`show`| boolean | true |   | responsible for show/hide dropdown
+`left` or `right`| boolean | false |   | props which are responsible for alignment. If they are not stated - `Dropdown`, by ***default*** will be centered ***in the middle***
