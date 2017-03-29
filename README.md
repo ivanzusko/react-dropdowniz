@@ -62,9 +62,16 @@ class YourComponent extends Component {
 
 ## Options
 
-Property | Type | isRequired | Default value | Description
-:---|:---|:---|:---|:---
-`className`| string | false | `DD` | custom className which will be added to the dafault `DD`
-`onClose`| Function | true |  | Function responsible for changing the state of the component which includes `Dropdown`
-`show`| boolean | true |   | responsible for show/hide dropdown
-`left` or `right`| boolean | false |   | props which are responsible for alignment. If they are not stated - `Dropdown`, by ***default*** will be centered ***in the middle***
+#### Required
+Property | Type | Default value | Description
+:---|:---|:---|:---
+`onClose`| Function | true | Function responsible for changing the state of the component which includes `Dropdown`
+`show`| boolean | true | responsible for show/hide dropdown
+
+#### Not required
+Property | Type  | Default value | Description
+:---|:---|:---|:---
+`className`| string | `DD` | custom className which will be added to the dafault `DD`
+`left` or `right`| boolean |   | props which are responsible for alignment. If they are not stated - `Dropdown`, by ***default*** will be centered ***in the middle***
+`width`| string | `20rem` | you can set `width` of the dropdown via `props` or pass your `className` and define rules in your styleshit
+`zIndex`| number | `1` | you can set `z-index` of the dropdown via `props` or pass your `className` and define rules in your styleshit

@@ -25,6 +25,20 @@
     };
   }
 
+  var _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
       throw new TypeError("Cannot call a class as a function");
@@ -79,7 +93,9 @@
     onClose: _react.PropTypes.func.isRequired,
     left: _react.PropTypes.bool,
     right: _react.PropTypes.bool,
-    show: _react.PropTypes.bool.isRequired
+    show: _react.PropTypes.bool.isRequired,
+    width: _react.PropTypes.string,
+    zIndex: _react.PropTypes.number
   };
 
   var DD = function (_Component) {
@@ -169,13 +185,16 @@
           top: 'calc(100% + 2.5rem)',
           opacity: 0,
           position: 'absolute',
-          width: '20rem'
+          width: '20rem',
+          zIndex: 1
         };
 
         var alignment = {
           left: '50%',
           transform: 'translateX(-50%)'
         };
+
+        var additionalStyles = {};
 
         if (this.props.left) {
           alignment = {
@@ -187,6 +206,18 @@
           };
         }
 
+        if (this.props.width) {
+          additionalStyles = _extends({}, additionalStyles, {
+            width: this.props.width
+          });
+        }
+
+        if (this.props.width) {
+          additionalStyles = _extends({}, additionalStyles, {
+            zIndex: this.props.zIndex
+          });
+        }
+
         if (!this.props.show) {
           return false;
         }
@@ -194,7 +225,7 @@
           'div',
           {
             className: className,
-            style: Object.assign({}, dropDownDefaultStyles, alignment, this.state.fadeIn)
+            style: Object.assign({}, dropDownDefaultStyles, additionalStyles, alignment, this.state.fadeIn)
           },
           this.props.children
         );

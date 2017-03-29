@@ -11,6 +11,8 @@ const propTypes = {
   left: PropTypes.bool,
   right: PropTypes.bool,
   show: PropTypes.bool.isRequired,
+  width: PropTypes.string,
+  zIndex: PropTypes.number,
 };
 
 class DD extends Component {
@@ -77,12 +79,15 @@ class DD extends Component {
       opacity: 0,
       position: 'absolute',
       width: '20rem',
+      zIndex: 1,
     };
 
     let alignment = {
       left: '50%',
       transform: 'translateX(-50%)',
     };
+
+    let additionalStyles = {}
 
     if (this.props.left) {
       alignment = {
@@ -95,13 +100,27 @@ class DD extends Component {
       };
     }
 
+    if (this.props.width) {
+      additionalStyles = {
+        ...additionalStyles,
+        width: this.props.width,
+      }
+    }
+
+    if (this.props.width) {
+      additionalStyles = {
+        ...additionalStyles,
+        zIndex: this.props.zIndex,
+      }
+    }
+
     if (!this.props.show) {
       return false;
     }
     return (
       <div
         className={className}
-        style={Object.assign({}, dropDownDefaultStyles, alignment, this.state.fadeIn)}
+        style={Object.assign({}, dropDownDefaultStyles, additionalStyles, alignment, this.state.fadeIn)}
       >
         {this.props.children}
       </div>
