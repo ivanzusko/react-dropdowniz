@@ -212,7 +212,7 @@
           });
         }
 
-        if (this.props.width) {
+        if (this.props.zIndex) {
           additionalStyles = _extends({}, additionalStyles, {
             zIndex: this.props.zIndex
           });

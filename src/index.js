@@ -107,7 +107,7 @@ class DD extends Component {
       }
     }
 
-    if (this.props.width) {
+    if (this.props.zIndex) {
       additionalStyles = {
         ...additionalStyles,
         zIndex: this.props.zIndex,
