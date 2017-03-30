@@ -11,6 +11,7 @@ const propTypes = {
   left: PropTypes.bool,
   right: PropTypes.bool,
   show: PropTypes.bool.isRequired,
+  styles: PropTypes.object,
   width: PropTypes.string,
   zIndex: PropTypes.number,
 };
@@ -112,6 +113,10 @@ class DD extends Component {
         ...additionalStyles,
         zIndex: this.props.zIndex,
       }
+    }
+
+    if (this.props.styles) {
+      additionalStyles = this.props.styles;
     }
 
     if (!this.props.show) {
