@@ -5,14 +5,13 @@
 import React, { Component, PropTypes } from 'react';
 
 const propTypes = {
+  show: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  alignLeft: PropTypes.bool,
+  alignRight: PropTypes.bool,
   className: PropTypes.string,
   // discardDefault: PropTypes.bool,
-  onClose: PropTypes.func.isRequired,
-  left: PropTypes.bool,
-  right: PropTypes.bool,
-  show: PropTypes.bool.isRequired,
-  width: PropTypes.string,
-  zIndex: PropTypes.number,
+  style: PropTypes.object,
 };
 
 class DD extends Component {
@@ -42,7 +41,7 @@ class DD extends Component {
   }
 
   clickDetector = (e) => {
-    const clickInDD = e.target.classList.contains('DD');
+    // const clickInDD = e.target.classList.contains('DD');
 
     this.handleClose();
   }
@@ -71,9 +70,9 @@ class DD extends Component {
   }
 
   render () {
-    const className = this.props.className ? `DD ${this.props.className}` : 'DD';
     const dropDownDefaultStyles = {
       backgroundColor: '#fff',
+      border: 'solid 2rem gold',
       boxShadow: '0 0.2rem 1.6rem 0 #f4f3f0',
       top: 'calc(100% + 2.5rem)',
       opacity: 0,
@@ -81,46 +80,42 @@ class DD extends Component {
       width: '20rem',
       zIndex: 1,
     };
+    const { children, className, alignLeft, alignRight, onClose, show, style, ...rest} = this.props;
+    const computedClassName = className ? `DD ${className}` : 'DD';
+    const propStyle = this.props.style || {};
 
     let alignment = {
       left: '50%',
       transform: 'translateX(-50%)',
     };
 
-    let additionalStyles = {}
-
-    if (this.props.left) {
+    if (alignLeft) {
       alignment = {
         left: 0,
       };
     }
-    else if (this.props.right) {
+    else if (alignRight) {
       alignment = {
         right: 0,
       };
     }
 
-    if (this.props.width) {
-      additionalStyles = {
-        ...additionalStyles,
-        width: this.props.width,
-      }
-    }
-
-    if (this.props.zIndex) {
-      additionalStyles = {
-        ...additionalStyles,
-        zIndex: this.props.zIndex,
-      }
-    }
+    const computedStyles = Object.assign(
+      {},
+      dropDownDefaultStyles,
+      alignment,
+      propStyle,
+      rest,
+      this.state.fadeIn,
+    );
 
     if (!this.props.show) {
       return false;
     }
     return (
       <div
-        className={className}
-        style={Object.assign({}, dropDownDefaultStyles, additionalStyles, alignment, this.state.fadeIn)}
+        className={computedClassName}
+        style={computedStyles}
       >
         {this.props.children}
       </div>

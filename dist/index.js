@@ -25,19 +25,17 @@
     };
   }
 
-  var _extends = Object.assign || function (target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
+  function _objectWithoutProperties(obj, keys) {
+    var target = {};
 
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
+    for (var i in obj) {
+      if (keys.indexOf(i) >= 0) continue;
+      if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
+      target[i] = obj[i];
     }
 
     return target;
-  };
+  }
 
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
@@ -88,14 +86,13 @@
   }
 
   var propTypes = {
+    show: _react.PropTypes.bool.isRequired,
+    onClose: _react.PropTypes.func.isRequired,
+    alignLeft: _react.PropTypes.bool,
+    alignRight: _react.PropTypes.bool,
     className: _react.PropTypes.string,
     // discardDefault: PropTypes.bool,
-    onClose: _react.PropTypes.func.isRequired,
-    left: _react.PropTypes.bool,
-    right: _react.PropTypes.bool,
-    show: _react.PropTypes.bool.isRequired,
-    width: _react.PropTypes.string,
-    zIndex: _react.PropTypes.number
+    style: _react.PropTypes.object
   };
 
   var DD = function (_Component) {
@@ -116,7 +113,7 @@
         isOpen: false,
         fadeIn: {}
       }, _this.clickDetector = function (e) {
-        var clickInDD = e.target.classList.contains('DD');
+        // const clickInDD = e.target.classList.contains('DD');
 
         _this.handleClose();
       }, _this.handleOpen = function () {
@@ -178,9 +175,9 @@
     }, {
       key: 'render',
       value: function render() {
-        var className = this.props.className ? 'DD ' + this.props.className : 'DD';
         var dropDownDefaultStyles = {
           backgroundColor: '#fff',
+          border: 'solid 2rem gold',
           boxShadow: '0 0.2rem 1.6rem 0 #f4f3f0',
           top: 'calc(100% + 2.5rem)',
           opacity: 0,
@@ -189,34 +186,35 @@
           zIndex: 1
         };
 
+        var _props = this.props,
+            children = _props.children,
+            className = _props.className,
+            alignLeft = _props.alignLeft,
+            alignRight = _props.alignRight,
+            onClose = _props.onClose,
+            show = _props.show,
+            style = _props.style,
+            rest = _objectWithoutProperties(_props, ['children', 'className', 'alignLeft', 'alignRight', 'onClose', 'show', 'style']);
+
+        var computedClassName = className ? 'DD ' + className : 'DD';
+        var propStyle = this.props.style || {};
+
         var alignment = {
           left: '50%',
           transform: 'translateX(-50%)'
         };
 
-        var additionalStyles = {};
-
-        if (this.props.left) {
+        if (alignLeft) {
           alignment = {
             left: 0
           };
-        } else if (this.props.right) {
+        } else if (alignRight) {
           alignment = {
             right: 0
           };
         }
 
-        if (this.props.width) {
-          additionalStyles = _extends({}, additionalStyles, {
-            width: this.props.width
-          });
-        }
-
-        if (this.props.zIndex) {
-          additionalStyles = _extends({}, additionalStyles, {
-            zIndex: this.props.zIndex
-          });
-        }
+        var computedStyles = Object.assign({}, dropDownDefaultStyles, alignment, propStyle, rest, this.state.fadeIn);
 
         if (!this.props.show) {
           return false;
@@ -224,8 +222,8 @@
         return _react2.default.createElement(
           'div',
           {
-            className: className,
-            style: Object.assign({}, dropDownDefaultStyles, additionalStyles, alignment, this.state.fadeIn)
+            className: computedClassName,
+            style: computedStyles
           },
           this.props.children
         );
