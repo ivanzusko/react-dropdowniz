@@ -10,7 +10,7 @@ const propTypes = {
   alignLeft: PropTypes.bool,
   alignRight: PropTypes.bool,
   className: PropTypes.string,
-  // discardDefault: PropTypes.bool,
+  discardDefault: PropTypes.bool,
   style: PropTypes.object,
 };
 
@@ -70,19 +70,22 @@ class DD extends Component {
   }
 
   render () {
-    const dropDownDefaultStyles = {
-      backgroundColor: '#fff',
-      border: 'solid 2rem gold',
-      boxShadow: '0 0.2rem 1.6rem 0 #f4f3f0',
-      top: 'calc(100% + 2.5rem)',
-      opacity: 0,
-      position: 'absolute',
-      width: '20rem',
-      zIndex: 1,
-    };
-    const { children, className, alignLeft, alignRight, onClose, show, style, ...rest} = this.props;
+    const { children, className, alignLeft, discardDefault, alignRight, onClose, show, style, ...rest} = this.props;
     const computedClassName = className ? `DD ${className}` : 'DD';
     const propStyle = this.props.style || {};
+    let dropDownDefaultStyles = {
+      backgroundColor: '#fff',
+      boxShadow: '0 2px 16px 0 #f4f3f0',
+      top: 'calc(100% + 25px)',
+      opacity: 0,
+      position: 'absolute',
+      width: '20px',
+      zIndex: 1,
+    };
+
+    if (discardDefault) {
+      dropDownDefaultStyles = {}
+    };
 
     let alignment = {
       left: '50%',

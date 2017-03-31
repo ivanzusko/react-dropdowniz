@@ -108,5 +108,6 @@ Property | Type  | Default value | Description
 :---|:---|:---|:---
 `className`| string | `DD` | custom className which will be added to the default `DD`
 `alignLeft` or `alignRight`| boolean |   | props which are responsible for alignment. If they are not stated - `Dropdown`, by ***default*** will be centered ***in the middle*** (related to container in which dropdown is rendering). **NOTE:** you should not use both `alignLeft` and `alignRight` simultaneously, because dropdown will get `left: 0` in this case
+`discardDefault`| boolean |  | If you want you can totally discard all the default styles, just be sure you are providing your own styles instead
 `style`| Object |   | if you want, you can pass object with your styles (like you would do with any other React components).
 `width`, `backgroundColor`, `zIndex` or any another valid CSS rule | string |  | you can pass any valid CSS rule via `props`. **NOTE:** single CSS style rules passed via `props` will have higher priority then styles passed inside the object via `style` prop. E.g. if you pass `style={{ width: '10rem', zIndex: '3' }}` and at the same time `zIndex={100}` - your dropDown will get `z-index: 100`

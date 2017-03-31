@@ -91,7 +91,7 @@
     alignLeft: _react.PropTypes.bool,
     alignRight: _react.PropTypes.bool,
     className: _react.PropTypes.string,
-    // discardDefault: PropTypes.bool,
+    discardDefault: _react.PropTypes.bool,
     style: _react.PropTypes.object
   };
 
@@ -175,29 +175,32 @@
     }, {
       key: 'render',
       value: function render() {
-        var dropDownDefaultStyles = {
-          backgroundColor: '#fff',
-          border: 'solid 2rem gold',
-          boxShadow: '0 0.2rem 1.6rem 0 #f4f3f0',
-          top: 'calc(100% + 2.5rem)',
-          opacity: 0,
-          position: 'absolute',
-          width: '20rem',
-          zIndex: 1
-        };
-
         var _props = this.props,
             children = _props.children,
             className = _props.className,
             alignLeft = _props.alignLeft,
+            discardDefault = _props.discardDefault,
             alignRight = _props.alignRight,
             onClose = _props.onClose,
             show = _props.show,
             style = _props.style,
-            rest = _objectWithoutProperties(_props, ['children', 'className', 'alignLeft', 'alignRight', 'onClose', 'show', 'style']);
+            rest = _objectWithoutProperties(_props, ['children', 'className', 'alignLeft', 'discardDefault', 'alignRight', 'onClose', 'show', 'style']);
 
         var computedClassName = className ? 'DD ' + className : 'DD';
         var propStyle = this.props.style || {};
+        var dropDownDefaultStyles = {
+          backgroundColor: '#fff',
+          boxShadow: '0 2px 16px 0 #f4f3f0',
+          top: 'calc(100% + 25px)',
+          opacity: 0,
+          position: 'absolute',
+          width: '20px',
+          zIndex: 1
+        };
+
+        if (discardDefault) {
+          dropDownDefaultStyles = {};
+        };
 
         var alignment = {
           left: '50%',
