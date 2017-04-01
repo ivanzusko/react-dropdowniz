@@ -1,6 +1,9 @@
 # React Dropdowniz
 Simple and minimalistic dropdown React component
 
+## Example
+[https://ivanzusko.github.io/react-dropdowniz/](https://ivanzusko.github.io/react-dropdowniz/)
+
 ## Installation
 Just run
 ```javascript
