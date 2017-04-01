@@ -79,12 +79,12 @@ class DD extends Component {
       top: 'calc(100% + 25px)',
       opacity: 0,
       position: 'absolute',
-      width: '20px',
+      width: '200px',
       zIndex: 1,
     };
 
     if (discardDefault) {
-      dropDownDefaultStyles = {}
+      dropDownDefaultStyles = {};
     };
 
     let alignment = {
