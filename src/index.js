@@ -24,6 +24,7 @@ class DD extends Component {
     this.setState(() => ({
       isOpen: true,
     }));
+
     setTimeout(() => {
       this.setState(() => ({
         fadeIn: {
@@ -33,35 +34,39 @@ class DD extends Component {
         },
       }));
     }, 1);
-    document.addEventListener('click', this.clickDetector, false);
+
+    if (this.detectiOS() === 'iOS') {
+      document.addEventListener('touchstart', this.clickDetector, false);
+    }
+    else {
+      document.addEventListener('click', this.clickDetector, false);
+    }
   }
 
   componentWillUnmount () {
-    document.removeEventListener('click', this.clickDetector, false);
+    if (this.detectiOS() === 'iOS') {
+      setTimeout(() => {
+        document.removeEventListener('touchstart', this.clickDetector, false);
+      }, 1);
+    }
+    else {
+      document.removeEventListener('click', this.clickDetector, false);
+    }
   }
 
-  clickDetector = (e) => {
-    // const clickInDD = e.target.classList.contains('DD');
+  detectiOS = () => {
+    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
+    if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+      return 'iOS';
+    }
+  }
+
+  clickDetector = () => {
     this.handleClose();
   }
 
-  handleOpen = () => {
-    this.setState(() => ({
-      isOpen: true,
-    }));
-    setTimeout(() => {
-      this.setState(() => ({
-        fadeIn: {
-          top: '100%',
-          opacity: 1,
-          transition: '150ms',
-        },
-      }));
-    }, 1);
-  }
-
-  handleClose = (e) => {
+  handleClose = () => {
     this.setState((prevState) => ({
       isOpen: false,
       fadeIn: {},
