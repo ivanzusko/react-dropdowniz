@@ -112,28 +112,15 @@
       return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = DD.__proto__ || Object.getPrototypeOf(DD)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
         isOpen: false,
         fadeIn: {}
-      }, _this.clickDetector = function (e) {
-        // const clickInDD = e.target.classList.contains('DD');
+      }, _this.detectiOS = function () {
+        var userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
+        if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+          return 'iOS';
+        }
+      }, _this.clickDetector = function () {
         _this.handleClose();
-      }, _this.handleOpen = function () {
-        _this.setState(function () {
-          return {
-            isOpen: true
-          };
-        });
-        setTimeout(function () {
-          _this.setState(function () {
-            return {
-              fadeIn: {
-                top: '100%',
-                opacity: 1,
-                transition: '150ms'
-              }
-            };
-          });
-        }, 1);
-      }, _this.handleClose = function (e) {
+      }, _this.handleClose = function () {
         _this.setState(function (prevState) {
           return {
             isOpen: false,
@@ -154,6 +141,7 @@
             isOpen: true
           };
         });
+
         setTimeout(function () {
           _this2.setState(function () {
             return {
@@ -165,12 +153,25 @@
             };
           });
         }, 1);
-        document.addEventListener('click', this.clickDetector, false);
+
+        if (this.detectiOS() === 'iOS') {
+          document.addEventListener('touchstart', this.clickDetector, false);
+        } else {
+          document.addEventListener('click', this.clickDetector, false);
+        }
       }
     }, {
       key: 'componentWillUnmount',
       value: function componentWillUnmount() {
-        document.removeEventListener('click', this.clickDetector, false);
+        var _this3 = this;
+
+        if (this.detectiOS() === 'iOS') {
+          setTimeout(function () {
+            document.removeEventListener('touchstart', _this3.clickDetector, false);
+          }, 1);
+        } else {
+          document.removeEventListener('click', this.clickDetector, false);
+        }
       }
     }, {
       key: 'render',
