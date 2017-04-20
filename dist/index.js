@@ -86,7 +86,7 @@
   }
 
   var propTypes = {
-    show: _react.PropTypes.bool.isRequired,
+    isOpen: _react.PropTypes.bool.isRequired,
     onClose: _react.PropTypes.func.isRequired,
     alignLeft: _react.PropTypes.bool,
     alignRight: _react.PropTypes.bool,
@@ -119,58 +119,54 @@
           return 'iOS';
         }
       }, _this.clickDetector = function () {
-        _this.handleClose();
-      }, _this.handleClose = function () {
-        _this.setState(function (prevState) {
-          return {
-            isOpen: false,
-            fadeIn: {}
-          };
-        });
         _this.props.onClose();
       }, _temp), _possibleConstructorReturn(_this, _ret);
     }
 
     _createClass(DD, [{
-      key: 'componentDidMount',
-      value: function componentDidMount() {
+      key: 'componentWillReceiveProps',
+      value: function componentWillReceiveProps(nextProps) {
         var _this2 = this;
 
-        this.setState(function () {
-          return {
-            isOpen: true
-          };
-        });
-
-        setTimeout(function () {
-          _this2.setState(function () {
+        if (nextProps.isOpen) {
+          this.setState(function () {
             return {
-              fadeIn: {
-                top: '100%',
-                opacity: 1,
-                transition: '150ms'
-              }
+              isOpen: true
             };
           });
-        }, 1);
-
-        if (this.detectiOS() === 'iOS') {
-          document.addEventListener('touchstart', this.clickDetector, false);
-        } else {
-          document.addEventListener('click', this.clickDetector, false);
-        }
-      }
-    }, {
-      key: 'componentWillUnmount',
-      value: function componentWillUnmount() {
-        var _this3 = this;
-
-        if (this.detectiOS() === 'iOS') {
           setTimeout(function () {
-            document.removeEventListener('touchstart', _this3.clickDetector, false);
+            _this2.setState(function () {
+              return {
+                fadeIn: {
+                  top: '100%',
+                  opacity: 1,
+                  transition: '150ms'
+                }
+              };
+            });
           }, 1);
+
+          if (this.detectiOS() === 'iOS') {
+            setTimeout(function () {
+              document.addEventListener('touchstart', _this2.clickDetector, false);
+            }, 1);
+          } else {
+            document.addEventListener('click', this.clickDetector, false);
+          }
         } else {
-          document.removeEventListener('click', this.clickDetector, false);
+          this.setState(function () {
+            return {
+              isOpen: false
+            };
+          });
+
+          if (this.detectiOS() === 'iOS') {
+            setTimeout(function () {
+              document.removeEventListener('touchstart', _this2.clickDetector, false);
+            }, 1);
+          } else {
+            document.removeEventListener('click', this.clickDetector, false);
+          }
         }
       }
     }, {
@@ -183,9 +179,9 @@
             discardDefault = _props.discardDefault,
             alignRight = _props.alignRight,
             onClose = _props.onClose,
-            show = _props.show,
+            isOpen = _props.isOpen,
             style = _props.style,
-            rest = _objectWithoutProperties(_props, ['children', 'className', 'alignLeft', 'discardDefault', 'alignRight', 'onClose', 'show', 'style']);
+            rest = _objectWithoutProperties(_props, ['children', 'className', 'alignLeft', 'discardDefault', 'alignRight', 'onClose', 'isOpen', 'style']);
 
         var computedClassName = className ? 'DD ' + className : 'DD';
         var propStyle = this.props.style || {};
@@ -220,7 +216,7 @@
 
         var computedStyles = Object.assign({}, dropDownDefaultStyles, alignment, propStyle, rest, this.state.fadeIn);
 
-        if (!this.props.show) {
+        if (!this.props.isOpen) {
           return false;
         }
         return _react2.default.createElement(

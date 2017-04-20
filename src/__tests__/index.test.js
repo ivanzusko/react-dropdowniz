@@ -7,7 +7,7 @@ describe('Dropdowniz', () => {
   describe('#render', () => {
     it('should render without crashing if is open', () => {
       const props = {
-        show: true,
+        isOpen: true,
         onClose: jest.fn(),
       };
       const wrapper = shallow(<DD {...props} />);
@@ -17,7 +17,7 @@ describe('Dropdowniz', () => {
 
     it('should render with additional className if it was passed', () => {
       const props = {
-        show: true,
+        isOpen: true,
         onClose: jest.fn(),
         className: 'mock-class',
       };
@@ -28,7 +28,7 @@ describe('Dropdowniz', () => {
 
     it('should not render if is closed', () => {
       const props = {
-        show: false,
+        isOpen: false,
         onClose: jest.fn(),
       };
       const wrapper = shallow(<DD {...props} />);
@@ -40,7 +40,7 @@ describe('Dropdowniz', () => {
   describe('receiving props', () => {
     it('should get default styles', () => {
       const props = {
-        show: true,
+        isOpen: true,
         onClose: jest.fn(),
       };
       const alignment = {
@@ -67,7 +67,7 @@ describe('Dropdowniz', () => {
 
     it('should not get default styles', () => {
       const props = {
-        show: true,
+        isOpen: true,
         onClose: jest.fn(),
         discardDefault: true,
       };
@@ -87,7 +87,7 @@ describe('Dropdowniz', () => {
 
     it('should get alignment to left side', () => {
       const props = {
-        show: true,
+        isOpen: true,
         onClose: jest.fn(),
         alignLeft: true,
         alignRight: true,
@@ -115,7 +115,7 @@ describe('Dropdowniz', () => {
 
     it('should get alignment to right side', () => {
       const props = {
-        show: true,
+        isOpen: true,
         onClose: jest.fn(),
         alignRight: true,
       };

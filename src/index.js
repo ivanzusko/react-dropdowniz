@@ -5,7 +5,7 @@
 import React, { Component, PropTypes } from 'react';
 
 const propTypes = {
-  show: PropTypes.bool.isRequired,
+  isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   alignLeft: PropTypes.bool,
   alignRight: PropTypes.bool,
@@ -20,37 +20,43 @@ class DD extends Component {
     fadeIn: {},
   }
 
-  componentDidMount () {
-    this.setState(() => ({
-      isOpen: true,
-    }));
-
-    setTimeout(() => {
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.isOpen) {
       this.setState(() => ({
-        fadeIn: {
-          top: '100%',
-          opacity: 1,
-          transition: '150ms',
-        },
+        isOpen: true,
       }));
-    }, 1);
-
-    if (this.detectiOS() === 'iOS') {
-      document.addEventListener('touchstart', this.clickDetector, false);
-    }
-    else {
-      document.addEventListener('click', this.clickDetector, false);
-    }
-  }
-
-  componentWillUnmount () {
-    if (this.detectiOS() === 'iOS') {
       setTimeout(() => {
-        document.removeEventListener('touchstart', this.clickDetector, false);
+        this.setState(() => ({
+          fadeIn: {
+            top: '100%',
+            opacity: 1,
+            transition: '150ms',
+          },
+        }));
       }, 1);
+
+      if (this.detectiOS() === 'iOS') {
+        setTimeout(() => {
+          document.addEventListener('touchstart', this.clickDetector, false);
+        }, 1);
+      }
+      else {
+        document.addEventListener('click', this.clickDetector, false);
+      }
     }
     else {
-      document.removeEventListener('click', this.clickDetector, false);
+      this.setState(() => ({
+        isOpen: false,
+      }));
+
+      if (this.detectiOS() === 'iOS') {
+        setTimeout(() => {
+          document.removeEventListener('touchstart', this.clickDetector, false);
+        }, 1);
+      }
+      else {
+        document.removeEventListener('click', this.clickDetector, false);
+      }
     }
   }
 
@@ -63,19 +69,11 @@ class DD extends Component {
   }
 
   clickDetector = () => {
-    this.handleClose();
-  }
-
-  handleClose = () => {
-    this.setState((prevState) => ({
-      isOpen: false,
-      fadeIn: {},
-    }));
     this.props.onClose();
   }
 
   render () {
-    const { children, className, alignLeft, discardDefault, alignRight, onClose, show, style, ...rest} = this.props;
+    const { children, className, alignLeft, discardDefault, alignRight, onClose, isOpen, style, ...rest} = this.props;
     const computedClassName = className ? `DD ${className}` : 'DD';
     const propStyle = this.props.style || {};
     let dropDownDefaultStyles = {
@@ -117,7 +115,7 @@ class DD extends Component {
       this.state.fadeIn,
     );
 
-    if (!this.props.show) {
+    if (!this.props.isOpen) {
       return false;
     }
     return (
