@@ -119,6 +119,14 @@
           return 'iOS';
         }
       }, _this.clickDetector = function () {
+        _this.handleClose();
+      }, _this.handleClose = function () {
+        _this.setState(function (prevState) {
+          return {
+            isOpen: false,
+            fadeIn: {}
+          };
+        });
         _this.props.onClose();
       }, _temp), _possibleConstructorReturn(_this, _ret);
     }

@@ -69,6 +69,14 @@ class DD extends Component {
   }
 
   clickDetector = () => {
+    this.handleClose();
+  }
+
+  handleClose = () => {
+    this.setState((prevState) => ({
+      isOpen: false,
+      fadeIn: {},
+    }));
     this.props.onClose();
   }
 
