@@ -44,19 +44,16 @@ class YourComponent extends Component {
         <h1>Some bla-bla title</h1>
         <button onClick={this.handleShowDropdown}>Open dropdown</button>
 
-        {
-          this.state.showDropdown &&
-            <Dropdown
-              className="your-class"
-              alignRight // to align dropdown on the right
-              show={this.state.showDropdown}
-              onClose={this.handleHideDropdown}
-            >
-              <li>Item 1</li>
-              <li>Item 2</li>
-              <li>Item 3</li>
-            </Dropdown>
-        }
+        <Dropdown
+          className="your-class"
+          alignRight // to align dropdown on the right
+          isOpen={this.state.showDropdown}
+          onClose={this.handleHideDropdown}
+        >
+          <li>Item 1</li>
+          <li>Item 2</li>
+          <li>Item 3</li>
+        </Dropdown>
       </div>
     );
   }
@@ -75,7 +72,7 @@ const myStyles = {
 
 <Dropdown
   style={myStyles} // just like with any other React components
-  show={this.state.showDropdown}
+  isOpen={this.state.showDropdown}
   onClose={this.handleHideDropdown}
 >
   <li>Item 1</li>
@@ -87,7 +84,7 @@ const myStyles = {
 
 ```javascript
 <Dropdown
-  show={this.state.showDropdown}
+  isOpen={this.state.showDropdown}
   onClose={this.handleHideDropdown}
   backgroundColor="#f00"
   zIndex={100}
@@ -104,7 +101,8 @@ const myStyles = {
 Property | Type | Default value | Description
 :---|:---|:---|:---
 `onClose`| Function | true | Function responsible for changing the state of the component which includes `Dropdown`
-`show`| boolean | true | responsible for show/hide dropdown
+`show` _(Deprecated)_ | boolean | true | was responsible for show/hide dropdown
+`isOpen`| boolean | true | responsible for show/hide dropdown
 
 #### Not required
 Property | Type  | Default value | Description
