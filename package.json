@@ -22,7 +22,8 @@
     "simple"
   ],
   "scripts": {
-    "prepublish": "npm run lint && npm run test && babel --plugins transform-es2015-modules-umd src --ignore __tests__ --out-dir ./dist",
+    "clean": "rm -rf dist",
+    "prepublish": "npm run clean && npm run lint && npm run test && babel --plugins transform-es2015-modules-umd src --ignore __tests__ --out-dir ./dist",
     "lint": "eslint ./src",
     "lintfix": "eslint ./src --fix",
     "test": "jest"
@@ -45,6 +46,7 @@
     "jest": "^19.0.2",
     "jsdom": "^8.1.0",
     "nodemon": "^1.9.1",
+    "prop-types": "^15.5.9",
     "react": "^15.0.0",
     "react-addons-test-utils": "^15.0.0",
     "react-dom": "^15.0.0",

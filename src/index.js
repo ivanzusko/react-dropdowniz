@@ -2,7 +2,8 @@
  * Dropdowniz
  */
 
-import React, { Component, PropTypes } from 'react';
+import React, { Components } from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
   isOpen: PropTypes.bool.isRequired,
